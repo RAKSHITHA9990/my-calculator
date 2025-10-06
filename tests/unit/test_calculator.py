@@ -29,3 +29,16 @@ class TestAdvancedOperations:
         import pytest
         with pytest.raises(ValueError, match="Cannot calculate square root of negative number"):
             square_root(-4)
+class TestFactorial:
+    """Test factorial operation"""
+    def test_factorial_positive_numbers(self):
+        assert factorial(5) == 120
+        assert factorial(3) == 6
+
+    def test_factorial_zero_and_one(self):
+        assert factorial(0) == 1
+        assert factorial(1) == 1
+
+    def test_factorial_negative_raises_error(self):
+        with pytest.raises(ValueError, match="Cannot calculate factorial of negative number"):
+            factorial(-3)
