@@ -1,0 +1,53 @@
+Initial Setup
+git --version
+gh --version
+git config --global user.name "Your GitHub Username"
+git config --global user.email "Your GitHub Email"
+gh auth login
+
+
+Clone Repository
+git clone https://github.com/<your-username>/my-calculator.git
+cd my-calculator
+pip install -r requirements.txt
+
+
+Run Tests
+python -m pytest tests/unit/ -v
+
+
+Commit & Push Changes
+git status
+git add .
+git commit -m "Commit message"
+git push origin <branch-name>
+
+
+Branching
+git branch
+git branch -a
+git branch feature/<feature-name>
+git checkout feature/<feature-name>
+
+
+Sync After Merge
+git checkout main
+git fetch origin main
+git pull origin main
+git branch -d feature/<feature-name>
+
+
+Example Feature Branches
+feature/multi-div
+feature/pow-sqrt
+feature/factorial
+feature/cli-interface
+
+
+✅ Next Steps
+
+Add CLI commands for testing:
+
+python src/calculator.py add 5 3
+python src/calculator.py multiply 4 6
+python src/calculator.py factorial 5
