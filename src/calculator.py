@@ -16,12 +16,18 @@ def subtract(a, b):
 
 
 def multiply(a, b):
-    """Multiply two numbers"""
+    """Multiply two numbers with input validation."""
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError("Both arguments must be numbers")
     return a * b
 
 
 def divide(a, b):
-    """Divide a by b"""
+    """Divide a by b with input validation."""
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
+        raise TypeError("Division requires numeric inputs")
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
     return a / b
 
 
@@ -37,50 +43,13 @@ def square_root(a):
     return a**0.5
 
 
-def multiply(a, b):
-    """Multiply two numbers with input validation and logging."""
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        raise TypeError("Both arguments must be numbers")
-
-    print(f"Multiplying {a} × {b}")  # Added logging
-    result = a * b
-    print(f"Result: {result}")
-    return result
-
-
-def divide(a, b):
-    """Divide a by b with enhanced error handling."""
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-        raise TypeError("Division requires numeric inputs")
-    if b == 0:
-        raise ValueError(f"Cannot divide {a} by zero - division by zero is undefined")
-
-    print(f"Dividing {a} ÷ {b}")  # Added logging
-    result = a / b
-    print(f"Result: {result}")
-    return result
-
-
-def multiply(a, b):
-    """Multiply two numbers"""
-    return a * b
-
-
-def divide(a, b):
-    """Divide a by b"""
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a / b
-
-
 def factorial(n):
     """Return the factorial of n. Raises ValueError if n < 0."""
     if n < 0:
         raise ValueError("Cannot calculate factorial of negative number")
-    if n in (0, 1):  # fixed R1714 warning
+    if n in (0, 1):
         return 1
-
     result_fact = 1
-    for num in range(2, n + 1):  # fixed W0621 warning
+    for num in range(2, n + 1):
         result_fact *= num
     return result_fact

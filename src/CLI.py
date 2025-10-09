@@ -2,9 +2,10 @@
 Command Line Interface for Calculator
 Example: python src/cli.py add 5 3
 """
+import sys
 import click
-from calculator import add, subtract, multiply, divide, power, square_root, factorial
 
+from src.calculator import add, subtract, multiply, divide, power, square_root, factorial
 
 @click.command()
 @click.argument("operation")
@@ -12,8 +13,11 @@ from calculator import add, subtract, multiply, divide, power, square_root, fact
 @click.argument("num2", type=float, required=False)
 def calculate(operation, num1, num2=None):
     """Simple calculator CLI"""
-
     try:
+        if operation in ("add", "subtract", "multiply", "divide", "power") and num2 is None:
+            click.echo("Unexpected error: missing second operand")
+            sys.exit(1)
+
         if operation == "add":
             result = add(num1, num2)
         elif operation == "subtract":
@@ -30,17 +34,19 @@ def calculate(operation, num1, num2=None):
             result = factorial(int(num1))
         else:
             click.echo(f"Unknown operation: {operation}")
-            return
+            sys.exit(1)
 
-        click.echo(result)
+        if isinstance(result, float) and result.is_integer():
+            result = int(result)
 
-    except TypeError as e:
+        click.echo(f"Result: {result}")
+
+    except (TypeError, ValueError) as e:
         click.echo(f"Error: {e}")
-    except ValueError as e:
-        click.echo(f"Error: {e}")
-    except Exception:
-        click.echo("Unexpected error occurred.")
-
+        sys.exit(1)
+    except Exception as e:
+        click.echo(f"Unexpected error occurred: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
-    calculate()
+    calculate()  # pylint: disable=no-value-for-parameter
