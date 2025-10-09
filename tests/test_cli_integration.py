@@ -31,3 +31,17 @@ class TestCLIIntegration:
         result = self.run_cli("subtract", "5")
         assert result.returncode == 1
         assert result.stdout.strip().startswith("Unexpected error:")
+# test_cli_integration.py
+
+class TestCLIIntegration:
+    def test_cli_multiply_integration(self):
+        """Test CLI can perform multiplication"""
+        result = self.run_cli("multiply", "5", "3")
+        assert result.returncode == 0
+        assert result.stdout.strip() == "15"
+
+    def test_cli_divide_integration(self):
+        """Test CLI can perform division"""
+        result = self.run_cli("divide", "5", "3")
+        assert result.returncode == 0
+        assert result.stdout.strip() == "1.67"
