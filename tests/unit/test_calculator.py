@@ -1,6 +1,13 @@
 import pytest
-from src.calculator import add, subtract, multiply, divide, power, square_root, factorial
-
+from src.calculator import (
+    add,
+    subtract,
+    multiply,
+    divide,
+    power,
+    square_root,
+    factorial,
+)
 
 
 class TestCalculator:

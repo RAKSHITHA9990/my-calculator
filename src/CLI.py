@@ -1,52 +1,39 @@
-"""
-Command Line Interface for Calculator
-Example: python src/cli.py add 5 3
-"""
+# src/cli.py
+
 import sys
-import click
+from .calculator import add, subtract, multiply, divide
 
-from src.calculator import add, subtract, multiply, divide, power, square_root, factorial
 
-@click.command()
-@click.argument("operation")
-@click.argument("num1", type=float)
-@click.argument("num2", type=float, required=False)
-def calculate(operation, num1, num2=None):
-    """Simple calculator CLI"""
+def main():
     try:
-        if operation in ("add", "subtract", "multiply", "divide", "power") and num2 is None:
-            click.echo("Unexpected error: missing second operand")
+        if len(sys.argv) < 4:
+            print("Unexpected error: Not enough arguments")
             sys.exit(1)
+
+        operation = sys.argv[1]
+        a = float(sys.argv[2])
+        b = float(sys.argv[3])
 
         if operation == "add":
-            result = add(num1, num2)
+            result = add(a, b)
+            print(f"Result: {int(result)}")
         elif operation == "subtract":
-            result = subtract(num1, num2)
+            result = subtract(a, b)
+            print(f"Result: {int(result)}")
         elif operation == "multiply":
-            result = multiply(num1, num2)
+            result = multiply(a, b)
+            print(f"Result: {int(result)}")
         elif operation == "divide":
-            result = divide(num1, num2)
-        elif operation == "power":
-            result = power(num1, num2)
-        elif operation == "sqrt":
-            result = square_root(num1)
-        elif operation == "factorial":
-            result = factorial(int(num1))
+            result = divide(a, b)
+            print(f"Result: {result:.2f}")
         else:
-            click.echo(f"Unknown operation: {operation}")
+            print("Unexpected error: Unknown operation")
             sys.exit(1)
 
-        if isinstance(result, float) and result.is_integer():
-            result = int(result)
-
-        click.echo(f"Result: {result}")
-
-    except (TypeError, ValueError) as e:
-        click.echo(f"Error: {e}")
-        sys.exit(1)
     except Exception as e:
-        click.echo(f"Unexpected error occurred: {e}")
+        print(f"Unexpected error: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
-    calculate()  # pylint: disable=no-value-for-parameter
+    main()
